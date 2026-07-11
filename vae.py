@@ -36,14 +36,18 @@ class VAE(nn.Module):
         # --- DECODER ---
         """
         The decoder maps the latent space back to the original data space.
+        Given a latent vector z, it outputs the parameters of the reconstructed input distribution (p_theta(x|z)).
+            Since we use a Gaussian VAE, it outputs the mean of the mean (mu) of the Gaussian distribution.
+            The variance is assumed to be fixed (e.g., 1) for simplicity.
+        
         It consists of two linear layers:
         1. decoder_hidden: Maps the latent vector z to a hidden representation.
-        2. decoder_output: Maps the hidden representation to the reconstructed input.
+        2. decoder_output: Maps the hidden representation to the mean of the reconstructed input distribution.
         """
         self.decoder_hidden = nn.Linear(latent_dim, hidden_dim)
         self.decoder_hidden_activation = nn.Tanh()
         self.decoder_output = nn.Linear(hidden_dim, input_dim)
-        self.decoder_output_activation = nn.Sigmoid()
+        self.decoder_output_activation = nn.Identity()
 
         
         
@@ -68,7 +72,7 @@ class VAE(nn.Module):
         # // TODO: Different
         if self.training:
             std = torch.exp(0.5 * log_var)
-            eps = torch.randn_like(std)
+            eps = torch.randn_like(std)     # In each dimension of the latent space, we sample from N(0,1) to get a random value. This is the "noise" we add to the mean to get a sample from the distribution.
             return mu + eps * std
         else:
             # In evaluation mode, we just return the mean (mu) as the latent vector to avoid randomness in the output.
@@ -85,13 +89,18 @@ class VAE(nn.Module):
 
         Parameters:
         - x: Input batch to process. x.size(0) is the batch size
+
+        Returns:
+        - mu_reconstruction: The mean of the reconstructed input distribution (p_theta(x|z)).
+        - mu_latent: The mean of the latent distribution (q_theta(z|x)).
+        - log_var_latent: The log variance of the latent distribution (q_theta(z|x)).
         """
         
         # Flattens the input automatically to the expected dimension (batch_size, input_dim)
         x_flat = x.view(x.size(0), -1)
 
-        mu, log_var = self.encode(x_flat)      # They are the parameters of the latent distribution (q_theta(z|x))
-        z = self.reparameterize(mu, log_var)
+        mu_latent, log_var_latent = self.encode(x_flat)      # They are the parameters of the latent distribution (q_theta(z|x))
+        z = self.reparameterize(mu_latent, log_var_latent)
 
-        reconstruction = self.decode(z)
-        return reconstruction, mu, log_var
+        mu_reconstruction = self.decode(z)
+        return mu_reconstruction, mu_latent, log_var_latent
