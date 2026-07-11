@@ -14,8 +14,8 @@ The framework separates the encoder from multiple decoder strategies, allowing y
   * **Input Layer:** Receives a flattened MNIST image vector of size $784$ ($28 \times 28$ pixels).
   * **Hidden Layer:** Fully connected layer mapping from $784 \to 512$ units, utilizing a **ReLU** activation function.
   * **Latent Projections (Parallel Branches):**
-    * **Mean ($\mu$):** Linear layer mapping from $512 \to \text{latent\_dim}$ (Identity activation). Represents the center of the latent distribution.
-    * **Log-Variance ($\log(\sigma^2)$):** Linear layer mapping from $512 \to \text{latent\_dim}$ (Identity activation). Modeled in log-space to enforce strictly positive variances ($\sigma^2 = \exp(\text{logvar})$) and ensure numerical stability.
+    * **Mean ($\mu$):** Linear layer mapping from $512 \to \text{latentDim}$ (Identity activation). Represents the center of the latent distribution.
+    * **Log-Variance ($\log(\sigma^2)$):** Linear layer mapping from $512 \to \text{latentDim}$ (Identity activation). Modeled in log-space to enforce strictly positive variances ($\sigma^2 = \exp(\text{logvar})$) and ensure numerical stability.
 
 * **Decoder Variants (Selectable Paradigms)**
   * **Option A: Gaussian Decoder**
