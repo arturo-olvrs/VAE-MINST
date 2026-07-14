@@ -64,6 +64,20 @@ These grids showcase the generative capabilities of both models. By sampling lat
 #### Bernoulli Decoder Synthesis
 ![Bernoulli Synthesis](results/Bernoulli_Synthesis.png)
 
+### 4. Latent Space Visualization (t-SNE)
+To better understand the structure of the learned latent space, we employ t-SNE to project the high-dimensional latent vectors into a 2D plane. This visualization reveals how the model clusters similar digit classes together, indicating that the latent space captures meaningful semantic information.
+* **Gaussian VAE Latent Space:**
+![Gaussian t-SNE](results/LatentSpace_Gaussian.png)
+* **Bernoulli VAE Latent Space:**
+![Bernoulli t-SNE](results/LatentSpace_Bernoulli.png)
+
+### 5. Latent Space Interpolation
+By linearly interpolating between two points in the latent space, we can generate a smooth transition between two distinct digit classes. This demonstrates the continuity and structure of the learned latent manifold.
+* **Gaussian VAE Interpolation:**
+![Latent Interpolation](results/Interpolation_Gaussian.png)
+* **Bernoulli VAE Interpolation:**
+![Latent Interpolation](results/Interpolation_Bernoulli.png)
+
 ---
 
 ## 🚀 Getting Started
