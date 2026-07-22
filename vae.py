@@ -1,3 +1,6 @@
+import torch
+import torch.nn as nn
+
 class GaussianEncoder(nn.Module):
     """
     Encoder for a Gaussian Variational Autoencoder (VAE).
