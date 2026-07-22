@@ -60,7 +60,7 @@ class GaussianDecoder(nn.Module):
         self.hidden = nn.Linear(latent_dim, hidden_dim)
         self.hidden_activation = nn.ReLU()
         self.output = nn.Linear(hidden_dim, output_dim)
-        self.output_activation = nn.Identity()
+        self.output_activation = nn.Sigmoid()
         
     def forward(self, z):
         """
