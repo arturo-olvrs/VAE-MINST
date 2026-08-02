@@ -38,10 +38,10 @@ Below are the experimental results achieved after training and evaluating both t
 The plots below show the optimization trajectory over training epochs. The total loss is broken down into its two core components: the **Reconstruction Loss** (BCE or MSE) and the **KL Divergence** regularizer.
 
 * Gaussian VAE Loss Components:
-  ![Gaussian Loss](results/GaussianVAE_LossComponents_Comparison.png)
+  ![Gaussian Loss](results/LossComponents_Comparison_Gaussian VAE.png)
 
 * Bernoulli VAE Loss Components:
-  ![Bernoulli Loss](results/BernoulliVAE_LossComponents_Comparison.png)
+  ![Bernoulli Loss](results/LossComponents_Comparison_Bernoulli VAE.png)
 
 ---
 
@@ -49,9 +49,9 @@ The plots below show the optimization trajectory over training epochs. The total
 A visual comparison displaying the network's capacity to reconstruct input images after compressing them into the bottleneck latent space. This highlights how well the structural features of the handwritten digits are preserved during both training and testing phases.
 
 * **Training Set Performance:**
-  ![Training Reconstruction](results/Reconstruction_Training.png)
+  ![Training Reconstruction](results/Reconstruction_Training_Set.png)
 * **Testing Set Performance (Generalization):**
-  ![Testing Reconstruction](results/Reconstruction_Testing.png)
+  ![Testing Reconstruction](results/Reconstruction_Testing_Set.png)
 
 ---
 
@@ -59,24 +59,24 @@ A visual comparison displaying the network's capacity to reconstruct input image
 These grids showcase the generative capabilities of both models. By sampling latent vectors directly from the prior distribution $z \sim \mathcal{N}(0, I)$ and passing them through the respective trained decoders, the network synthesizes entirely new, realistic handwritten digits.
 
 #### Gaussian Decoder Synthesis
-![Gaussian Synthesis](results/Gaussian_Synthesis.png)
+![Gaussian Synthesis](results/SynthesizedSamples_Gaussian VAE.png)
 
 #### Bernoulli Decoder Synthesis
-![Bernoulli Synthesis](results/Bernoulli_Synthesis.png)
+![Bernoulli Synthesis](results/SynthesizedSamples_Bernoulli VAE.png)
 
 ### 4. Latent Space Visualization (t-SNE)
 To better understand the structure of the learned latent space, we employ t-SNE to project the high-dimensional latent vectors into a 2D plane. This visualization reveals how the model clusters similar digit classes together, indicating that the latent space captures meaningful semantic information.
 * **Gaussian VAE Latent Space:**
-![Gaussian t-SNE](results/LatentSpace_Gaussian.png)
+![Gaussian t-SNE](results/LatentSpace_tSNE_Gaussian VAE.png)
 * **Bernoulli VAE Latent Space:**
-![Bernoulli t-SNE](results/LatentSpace_Bernoulli.png)
+![Bernoulli t-SNE](results/LatentSpace_tSNE_Bernoulli VAE.png)
 
 ### 5. Latent Space Interpolation
 By linearly interpolating between two points in the latent space, we can generate a smooth transition between two distinct digit classes. This demonstrates the continuity and structure of the learned latent manifold.
 * **Gaussian VAE Interpolation:**
-![Latent Interpolation](results/Interpolation_Gaussian.png)
+![Latent Interpolation](results/latentSpace_Interpolation_Gaussian VAE.png)
 * **Bernoulli VAE Interpolation:**
-![Latent Interpolation](results/Interpolation_Bernoulli.png)
+![Latent Interpolation](results/latentSpace_Interpolation_Bernoulli VAE.png)
 
 ---
 
