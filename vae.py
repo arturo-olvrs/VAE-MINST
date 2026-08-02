@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+from torch.distributions import Normal
 
 class GaussianEncoder(nn.Module):
     """
@@ -44,6 +45,19 @@ class GaussianEncoder(nn.Module):
         log_var = self.fc_logvar_activation(self.fc_logvar(h))
 
         return mu, log_var
+
+    def get_distribution(self, x):
+        """
+        Compute the probability density function (PDF) of q_theta(z|x).
+
+        Parameters:
+        - x: Input batch to process. x.size(0) is the batch size
+        Returns:
+        - The PDF of q_theta(z|x).
+        """
+        mu, log_var = self.forward(x)
+        sigma = torch.exp(0.5 * log_var)
+        return Normal(mu, sigma)
     
 
 class GaussianDecoder(nn.Module):
@@ -73,6 +87,22 @@ class GaussianDecoder(nn.Module):
         """
         h = self.hidden_activation(self.hidden(z))
         return self.output_activation(self.output(h))
+
+    def get_distribution(self, z):
+        """
+        Compute the probability density function (PDF) of the reconstructed input distribution p_theta(x|z).
+
+        Parameters:
+        - z: Latent vector to decode. z.size(0) is the batch size
+        Returns:
+        - The PDF of the reconstructed input distribution (p_theta(x|z)).
+        """
+        mu_recon = self.forward(z)
+        sigma = 0.5
+        sigma_recon = torch.full_like(mu_recon, sigma)
+        return Normal(mu_recon, sigma_recon)
+        
+
 
 class BernoulliDecoder(nn.Module):
     """

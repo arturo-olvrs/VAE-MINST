@@ -78,6 +78,17 @@ By linearly interpolating between two points in the latent space, we can generat
 * **Bernoulli VAE Interpolation:**
 ![Latent Interpolation](results/LatentSpace_Interpolation_BernoulliVAE.png)
 
+### 6. Different Likelihood Estimators
+
+Four different likelihood estimators for the Gaussian VAE are implemented:
+- Uniform Estimator, where $z\sim \mathcal{U}(a, b)$
+- Prior Estimator, where $z\sim \mathcal{N}(0, I)$
+- Importance Sampling Estimator, where $z\sim q(z|x)$
+- Evidence Lower Bound (ELBO) Estimator, where no Monte Carlo sampling is used, and the KL divergence is computed analytically.
+
+The results of these estimators are compared in the following plot.
+![Likelihood Estimators Comparison](results/Estimator_Comparison.png)
+
 ---
 
 ## 🚀 Getting Started
